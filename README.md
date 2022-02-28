@@ -5,8 +5,8 @@ Word list comes from Wiktionary, and is not huge (and is also obsfucated in a ve
 
 ### Features
 
-[x] Word list that changes every day
-[x] Wordle-style table and navigation
-[x] Checking if you have the word or not 
-[ ] Highlight squares 
-[ ] Share result
+- [x] Word list that changes every day
+- [x] Wordle-style table and navigation
+- [x] Checking if you have the word or not 
+- [ ] Highlight squares 
+- [ ] Share result
