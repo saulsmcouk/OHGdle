@@ -9,6 +9,7 @@
       body {
         text-align: center;
         font-family: sans-serif;
+
       }
       table {
         text-align: center;
@@ -96,6 +97,7 @@
                 const l = atob(secretList).split(",")
                 if (l.indexOf(attempt) == daysIntoYear(new Date())) {
                   n.success("Well done!")
+                  for (const elem of document.activeElement.parentElement.parentElement.children) elem.children[0].style.backgroundColor = "green"
                   document.getElementById("result").innerHTML =
                     `OHGdle #${Math.round((new Date() - new Date(2022,1,27))/(24*60*60*1000))} ${window.triesCount}/6`
                 } else if (l.indexOf(attempt) != -1){
@@ -127,7 +129,7 @@
               else if (e.key == "Backspace") {
                   const v = document.activeElement.value;
                   console.log(v)
-
+                  document.activeElement.value = "";
                   if (v == "") {
                       console.log("empty")
                       if (document.activeElement.parentElement.previousElementSibling) {
