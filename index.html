@@ -50,6 +50,7 @@
         <td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td>
       </tr>
     </table>
+    <p><span id="result"></span></p>
   <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
   <script type="text/javascript">
     // THE WORDLIST IS ENCODED USING btoa/atob. This is not at all secure, and can basically be described as 'the honour system'.
@@ -75,7 +76,6 @@
     // this will last a year
     const secretList = "    c3RpZ2EsaGFybW8sbWFoYWwsaGFtYXIsbGVuZ2ksc2VsYWgsemVpbmEsemVoYW4sc2VnYW4sc3RhbmQsbG9ib24sYWNrYXIsc3RhZG8saGlydGksd3VybW8sYWZ0ZXIsYWhvcm4saGFnYW4sbG9zZW4sYWRhbmssUm9hdGEsc3RlcnosemFnYWwsc2VpdG8scm9ja28sc2VoYW4sbGVyZW4senVuZ2EsYWxsZXMsYWJhbmQsbHVwcGksYW1iZXIsc3Bvcm8sYWZ0YXIsemlubmEsc3Rlcm4sYW5ndWwsd3Vya28sc3Rlcm8sc2VnYWwsc2Nvem8saGFtYWwsaGFmdGEsYW5nYXIsd3VvdG8semFoYXIsc3BhbHQsYW5rZXIsc3BhdG8sYW5kYXIsemVtYW4sc3Rhbmssc2FnZW4sYXBmdWwsYXJiZW8sc3RvcmgsbWFuYWcsaGFydG8sc21hbHoscnVja2ksc2x1bmEsaG9sZG8sc2NpbW8sSG9sZGEsaGlydXosc2N1bGQsc2FsaWcsc2xpdG8sc3RlaW4sc3RlcmssYW5jaG8sYWx0YXIsYXJtaWwsbWFnYXIsc2VuZWYsc2lidW4sc3RhcmssbWFyYWgsc21lcm8sYXJ3dW4sc2FoaG8sc2FsbW8sc3Bhcm8sYmFsZGksYXpnZXIsYXJ6YXQsaGltaWwsbWFnYWQsYmFja28sc3R1b2wsc21pcmwsc3Bpc2Esc3RyaXQsYmFsa28sYmFkb24sc3R1YmEsc2NhZG8sc2t1b2gsc3RydXosaGlyc28sc3R1cm0sc2NvbG8sbGVzYW4sYmVpZGUsbGluZG8saHJpbmcsbGF6YW4sc2tpbmEsc2t1cmEsc2x1bnQsbGlza2Esc2thbGssc3VubmEsc2NhcmYsc3VtYXIsYmxpbnQsc3VubmUsc2NhbGEsYmV0b24sc2Nvbmksc2NhcmEsc2NhdG8sYml6YW4saGFydGksc2Nhcm8saG91d2ksYmFnYW4saG9yZW4saGlybmksc2tvdWIsYmVyYW4saGFiZW4sc2tvcGYsbGVuem8sYml6em8sYmliZW4sYmx1b3QsYm9yb24sc2xhZ28sY2hhc2ksc2xlaHQsdGhhcmEsdHJlc28sYmxvZGksaGl1dHUsY3VudGEsYnJlbW8saGVubmEsbGl1ZGksY3VuZG8sYm9ydG8sbWV0b2Qsd2lkYXIsbXVvZGksYnVyc3QsYnJlaXQsc3Vubm8sY2hhbG8sc3ViYXIsZ3V0aW4sYnJ1c3QsY2hsZW8saG9wZm8sc3VudGEsd2liaWwsdXphbmEsd2V0dGksbXVnYW4sbW9sdHUsc3dhcnosd2VsaWgsZGFtcGgsd2VuYWcsaHV0dGEsd2VkYXIsd2l6em8saHVsZGEsaGFnYWwsd29sYm8sdG9sZG8sc3VvemksYm90YWgsYnJhdG8sc3dlcm8sZWJhbm8sZGVnYW4saHVsbGEsd3Vubm8sZHJhdG8sZHJ1Ym8sbWFyaGEsdmFycm8sdXdpbGEsd2Vpc28saHVsZGksaGVyemEsd2FuZW4sZWJhbmksaGludGEsZWhhZnQsd2VzYW4sdXphcm8sZHVubmksbWlsemksaGV2YW4sZHVydWgsd2Fja28saGVycm8sZGVtYXIsZWlnYW4sa25vdG8sRG9uYXIsbXVsaW4sdHJlbm8sd2FubmEsc3dlcnQsc3dhcmksZHVycmksdGl1cmksZHJhZW4sdGFnZXMsZG9uYXIsaW5uYXIsamVzYW4sZG9yZXQsZG9sZW4sd2FmYW4sbmFnYWwsbWVpbm8sd29sa28sZW5pdGEsbWlsdGksRmVvaHQsZWxpbmEsa29jaG8sZmVuZG8sd2FuZ2EsdGhpbmcsZmVsaXMsd2VycmEsamFnb24sZWl0YXIsamFtYXIsZmVyYWgsbWFzY2EsdGl1ZmUsd2lsbG8sbWl0dGksd2VoaGEsaXV3YXIsZmxhaHMsdWJpbG8sdW5zaWgsZXp6YW4sdW9odGEsaXJyb24sZXJpc3QsV29kYW4sZmx1b3IsZmFnYXIsd2lsZGksZWxsYW4sd2FybWksZm9sbGEsbWVpc3QsZW5naWwsTmFubmEsd2Vpemksd2FydG8sbmFycm8saXJyZW4sdHVvY2gsa25hYm8sZmFsY28sdHVuZ2EsamVuZXIsbmVidWwsZm9nYXQsZm9nYWwsZmVzdGkscmFiYW4sa2xvYm8sb2ZmYW4sZmxhZG8sd2FtYmEsV29kYWwsa291Zm8sdHVnYW4scXVlbmEsZXJ0YWcsa2lyc2EsdHV0dG8sa29sYm8scXVhbGEsa3J1emksd2lzZW4sa3J1bXAsZXp6aWgsZm9yc3QsZmFyYW4sdHdlcmMsa2VsaWgsdHVvbW8sa3VzZ28sZmFyYWgsdWJhcmkscGx1b3QscmFoaG8sZmVycm8sZmluY28sa2FyYWcscGZvc3QscGFnYW4sZmFzdG8sdW50YXIsdWJpbGksdW9kaWwscmF0aWgsZmVpZ2ksdXJsYWMsRm9uc2EsZnJhZ2EscGFuY2gsdW50YXoscmFoaGEsZnJpc2MsRnVzY2EscmFzdGEsZnJpZHUsa2FsdGksa3VubmksRnVzY28sbGVpbW8scGZ1bnQscmloaGksZ2FsZ28sa2Vybm8sZ2FnYW4sZnJvc3QsZnJ1bWEsZ2F6emEsZnVodGksbGViZW4samV0YW4scGZhd28sa2lubmksZnVsbG8sbmlkYXIscmluZGEsRnJpaWEsbmV6emkscmllbW8sZ2FydG8scmVnYW4sa2FzdG8sZnJvc2ssZ2ViYW4sbmVtYW4sZnVsbGksbml1d2ksZ2Vybm8sa3VvbGksbGFuZ28sa3Vyemksa3VvbmkscmlkYW4scmlzYW4scml0YQ=="
     const word = atob(secretList).split(",")[daysIntoYear(new Date())]
-    console.log(word)
     window.triesCount = 0;
     // functionality: advance on key press
     document.addEventListener('keydown', e => {
@@ -94,6 +94,8 @@
                 const l = atob(secretList).split(",")
                 if (l.indexOf(attempt) == daysIntoYear(new Date())) {
                   n.success("Well done!")
+                  document.getElementById("result").innerHTML =
+                    `OHGdle #${Math.round((new Date() - new Date(2022,1,27))/(24*60*60*1000))} ${window.triesCount}/6`
                 } else if (l.indexOf(attempt) != -1){
                   n.error("Not quite")
                   const w = l[daysIntoYear(new Date())];
@@ -150,7 +152,6 @@
               e.preventDefault();
               console.log("out of tries")
             }
-
             console.log(e.key)
             // }
         }
