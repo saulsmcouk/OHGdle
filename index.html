@@ -32,7 +32,7 @@
     <h1>Old High German Wordle</h1>
     <table id="theTable">
       <tr>
-        <td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td>
+        <td><input type="text" id="startHere"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td>
       </tr>
       <tr>
         <td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td>
@@ -69,6 +69,7 @@
         });
     }
 })(_ => {
+  document.getElementById("startHere").focus()
     // credit to https://stackoverflow.com/a/40975730 CC BY-SA 3.0 for daysIntoYear
     function daysIntoYear(date) {
         return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
